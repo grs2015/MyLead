@@ -1,0 +1,14 @@
+models:
+  Product:
+    uuid: uuid,
+    title: string:100,
+    description: longtext nullable
+    relationships:
+      hasMany: Price
+  Price:
+    uuid: uuid,
+    group_description: longtext default:'default_group',
+    priceA: integer unsigned nullable
+    priceB: integer unsigned nullable
+    priceC: integer unsigned nullable
+    product_id: id foreign

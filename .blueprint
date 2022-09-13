@@ -1,0 +1,11 @@
+created:
+    - database/factories/ProductFactory.php
+    - database/factories/PriceFactory.php
+    - database/migrations/2022_09_13_204658_create_products_table.php
+    - database/migrations/2022_09_13_204659_create_prices_table.php
+    - app/Models/Product.php
+    - app/Models/Price.php
+models:
+    User: { name: string, email: string, email_verified_at: 'datetime nullable', password: string, remember_token: 'string:100 nullable' }
+    Product: { uuid: 'uuid,', title: 'string:100,', description: 'longtext nullable', relationships: { hasMany: Price } }
+    Price: { uuid: 'uuid,', group_description: "longtext default:'default_group',", priceA: 'integer unsigned nullable', priceB: 'integer unsigned nullable', priceC: 'integer unsigned nullable', product_id: 'id foreign' }
