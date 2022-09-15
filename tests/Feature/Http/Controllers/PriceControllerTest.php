@@ -1,20 +1,26 @@
 <?php
 
+use App\Models\User;
 use App\Models\Price;
 use App\Models\Product;
+use Laravel\Sanctum\Sanctum;
 use function Pest\Laravel\getJson;
-use function Pest\Laravel\postJson;
 use function Pest\Laravel\putJson;
-use function Pest\Laravel\deleteJson;
 
+use function Pest\Laravel\postJson;
+use function Pest\Laravel\deleteJson;
 use App\Http\Controllers\PriceController;
 use Illuminate\Testing\Fluent\AssertableJson;
 use App\Http\Controllers\ProductPriceController;
 
 uses()->group('prices');
 
+beforeEach(function () {
+    Sanctum::actingAs(User::factory()->create(), ['*']);
+});
+
 /* ------------------------------ @index method ----------------------------- */
-it('renders the list of product prices', function() {
+it('renders the list of product prices when logged-in', function() {
     $product = Product::factory()->hasPrices(3)->create();
     $price = Price::first();
 
@@ -44,7 +50,7 @@ it('renders the list of product prices', function() {
 });
 
 /* ------------------------------ @store method ----------------------------- */
-it('checks the correct response code', function() {
+it('checks the correct response code when logged-in', function() {
     $priceData = [
         'group_description' => 'Group#1',
         'priceA' => 100,
@@ -56,7 +62,7 @@ it('checks the correct response code', function() {
     postJson(action([PriceController::class, 'store'], $priceData))->assertStatus(201);
 });
 
-it('checks the correct response after successful storing', function () {
+it('checks the correct response after successful storing when logged-in', function () {
     $this->withoutExceptionHandling();
 
     $priceData = [
@@ -74,7 +80,7 @@ it('checks the correct response after successful storing', function () {
         ->assertJsonPath('data.attributes.priceC', $priceData['priceC']);
 });
 
-it('checks the 422 response if data validation fails by different reasons', function(?string $group, ?int $priceA, ?int $priceB, ?int $priceC) {
+it('checks the 422 response if data validation fails by different reasons when logged-in', function(?string $group, ?int $priceA, ?int $priceB, ?int $priceC) {
     $product_uuid = Product::factory()->create()->uuid;
 
     $priceData = [
@@ -93,7 +99,7 @@ it('checks the 422 response if data validation fails by different reasons', func
     ['Group', 100, 200, null],
 ]);
 
-it('checks the stored price in database', function() {
+it('checks the stored price in database when logged-in', function() {
     $product_uuid = Product::factory()->create()->uuid;
 
     $priceData = [
@@ -110,7 +116,7 @@ it('checks the stored price in database', function() {
 });
 
 /* ----------------------------- @update method ----------------------------- */
-it('checks the empty response body in case of successful update', function() {
+it('checks the empty response body in case of successful update when logged-in', function() {
     //Arrange #1
     $product_uuid = Product::factory()->create()->uuid;
 
@@ -136,7 +142,7 @@ it('checks the empty response body in case of successful update', function() {
     putJson(action([PriceController::class, 'update'], $price), $priceData)->assertNoContent();
 });
 
-it('checks the updated price in database', function() {
+it('checks the updated price in database when logged-in', function() {
     $this->withoutExceptionHandling();
     //Arrange #1
     $product_uuid = Product::factory()->create()->uuid;
@@ -167,7 +173,7 @@ it('checks the updated price in database', function() {
 });
 
 /* ----------------------------- @destroy method ---------------------------- */
-it('checks the deletion of entry', function() {
+it('checks the deletion of entry when logged-in', function() {
     //Arrange #1
     $product_uuid = Product::factory()->create()->uuid;
 
