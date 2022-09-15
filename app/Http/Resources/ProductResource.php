@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use TiMacDonald\JsonApi\Link;
 use App\Http\Resources\PriceResource;
 use TiMacDonald\JsonApi\JsonApiResource;
+use App\Http\Controllers\ProductController;
 
 class ProductResource extends JsonApiResource
 {
@@ -27,7 +28,7 @@ class ProductResource extends JsonApiResource
     protected function toLinks(Request $request): array
     {
         return [
-            Link::self(route('products.show', $this->resource)),
+            Link::self(action([ProductController::class, 'show'], $this->resource)),
         ];
     }
 }
