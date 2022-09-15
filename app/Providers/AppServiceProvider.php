@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
+use TiMacDonald\JsonApi\JsonApiResource;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +25,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        JsonApiResource::resolveIdUsing(function (mixed $resource, Request $request): string {
+
+            return $resource->uuid;
+        });
     }
 }

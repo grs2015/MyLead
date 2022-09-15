@@ -3,6 +3,7 @@
 use Tests\CreatesApplication;
 use Illuminate\Foundation\Testing\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 
 
 /*
@@ -16,7 +17,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 |
 */
 
-uses(TestCase::class, CreatesApplication::class, RefreshDatabase::class)->in('Feature', 'Unit');
+uses(TestCase::class, CreatesApplication::class, LazilyRefreshDatabase::class)->in('Feature', 'Unit');
 
 /*
 |--------------------------------------------------------------------------
