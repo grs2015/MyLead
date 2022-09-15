@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Price extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuid;
 
     /**
      * The attributes that are mass assignable.
@@ -32,6 +33,11 @@ class Price extends Model
         'id' => 'integer',
         'product_id' => 'integer',
     ];
+
+    public function getRouteKeyName(): string
+    {
+        return 'uuid';
+    }
 
     public function product()
     {
