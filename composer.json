@@ -10,7 +10,9 @@
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
-        "ramsey/uuid": "^4.4"
+        "ramsey/uuid": "^4.4",
+        "spatie/laravel-query-builder": "^5.0",
+        "timacdonald/json-api": "^0.2.1"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.12",
