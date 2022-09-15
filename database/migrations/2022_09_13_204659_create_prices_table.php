@@ -18,7 +18,7 @@ class CreatePricesTable extends Migration
         Schema::create('prices', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid');
-            $table->longText('group_description')->default('default_group\',');
+            $table->longText('group_description')->nullable();
             $table->unsignedInteger('priceA')->nullable();
             $table->unsignedInteger('priceB')->nullable();
             $table->unsignedInteger('priceC')->nullable();

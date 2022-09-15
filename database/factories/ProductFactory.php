@@ -23,7 +23,6 @@ class ProductFactory extends Factory
     public function definition()
     {
         return [
-            'uuid' => $this->faker->uuid,
             'title' => $this->faker->sentence(4),
             'description' => $this->faker->text,
         ];

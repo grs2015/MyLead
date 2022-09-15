@@ -24,7 +24,6 @@ class PriceFactory extends Factory
     public function definition()
     {
         return [
-            'uuid' => $this->faker->uuid,
             'group_description' => $this->faker->text,
             'priceA' => $this->faker->randomNumber(),
             'priceB' => $this->faker->randomNumber(),
